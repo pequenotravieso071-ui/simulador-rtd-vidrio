@@ -6,7 +6,7 @@ import datetime
 st.set_page_config(page_title="Simulador de Saturación RTD", layout="wide")
 st.title("🧪 Control de Cambio de Color y Saturación de Óxidos - Vidrio Flint")
 
-MASA_EXTRA = 1.4
+MASA_EXTRA = 1.8
 
 def calcular_dinamica(longitud, ancho, nivel, extraccion, temp):
     delta_t = temp - 1400
