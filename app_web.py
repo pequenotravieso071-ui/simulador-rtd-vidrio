@@ -8,7 +8,7 @@ st.set_page_config(page_title="Simulador de Saturación RTD", layout="wide")
 st.title("🧪 Control de Cambio de Color y Saturación de Óxidos - Vidrio Flint")
 
 # Parámetros fijos
-MASA_EXTRA = 1.4
+MASA_EXTRA = 1.8
 
 # --- MEMORIA INTERNA (Evita que los datos se borren al dar Enter o Actualizar) ---
 if 'fecha_txt' not in st.session_state:
