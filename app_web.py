@@ -3,34 +3,26 @@ import numpy as np
 import matplotlib.pyplot as plt
 import datetime
 
-# Configuración de la página
 st.set_page_config(page_title="Simulador de Saturación RTD", layout="wide")
 st.title("🧪 Control de Cambio de Color y Saturación de Óxidos - Vidrio Flint")
 
-# Parámetros fijos
 MASA_EXTRA = 1.4
 
 def calcular_dinamica(longitud, ancho, nivel, extraccion, temp):
-    # 1. Correcciones de densidad por temperatura
     delta_t = temp - 1400
     densidad_actual = max(2.20, 2.35 - (delta_t * 0.00015))
     
-    # 2. Corrección del VOLUMEN MUERTO basada en la geometría
     area = longitud * ancho
     f_muerto_base = 0.10 + (0.3325 / area)
     f_muerto_base = max(0.10, min(f_muerto_base, 0.30))
     f_muerto_actual = max(0.05, f_muerto_base - (delta_t * 0.0002))
     
-    # 3. CORRECCIÓN DE CONVECCIÓN: A mayor temperatura, el vidrio es más fluido,
-    # hay más atajos (short-circuits) y la primera gota llega más rápido.
     f_piston = max(0.10, min(0.50, 0.30 - (delta_t * 0.0015))) 
 
-    # 4. Cálculos de masa
     volumen_fusion = area * nivel
     masa_fusion = volumen_fusion * densidad_actual
     masa_total = masa_fusion + MASA_EXTRA
     
-    # 5. Cálculos de tiempos (en horas)
     tau_teorico_h = (masa_total / extraccion) * 24
     tau_activo_h = tau_teorico_h * (1 - f_muerto_actual)
     
@@ -39,22 +31,27 @@ def calcular_dinamica(longitud, ancho, nivel, extraccion, temp):
 
     return masa_total, tau_teorico_h, t_piston_h, t_mezcla_h, f_muerto_actual, f_piston
 
-# --- INTERFAZ WEB (Barra lateral) ---
-st.sidebar.header("🗓️ Inicio del Cambio de Mezcla")
-fecha_inicio = st.sidebar.date_input("Fecha", datetime.date.today())
-hora_inicio = st.sidebar.time_input("Hora", datetime.datetime.now().time())
+# --- INTERFAZ WEB (Formulario en Barra lateral) ---
+with st.sidebar.form("formulario_datos"):
+    st.header("🗓️ Inicio del Cambio de Mezcla")
+    # Al estar en un form, no se sobreescribirá cuando teclees
+    fecha_inicio = st.date_input("Fecha", datetime.date.today())
+    hora_inicio = st.time_input("Hora", datetime.datetime.now().time())
 
-# Combinar fecha y hora en un solo objeto para poder sumarle las horas después
+    st.header("📐 Dimensiones del Tanque")
+    longitud = st.number_input("Longitud de Fusión (m)", min_value=1.0, max_value=20.0, value=3.5, step=0.1)
+    ancho = st.number_input("Ancho de Fusión (m)", min_value=0.5, max_value=10.0, value=1.9, step=0.1)
+
+    st.header("⚙️ Parámetros Operativos")
+    nivel = st.number_input("Nivel de Vidrio (m)", min_value=0.2, max_value=2.0, value=0.60, step=0.01)
+    extraccion = st.number_input("Extracción (t/día)", min_value=0.5, max_value=50.0, value=3.60, step=0.1)
+    temp = st.number_input("Temperatura de Fusión (°C)", min_value=1250, max_value=1600, value=1400, step=10)
+    
+    # Botón para procesar todo a la vez
+    btn_calcular = st.form_submit_button("Actualizar Cálculos")
+
+# Combinar fecha y hora
 inicio_real = datetime.datetime.combine(fecha_inicio, hora_inicio)
-
-st.sidebar.header("📐 Dimensiones del Tanque")
-longitud = st.sidebar.number_input("Longitud de Fusión (m)", min_value=1.0, max_value=20.0, value=3.5, step=0.1)
-ancho = st.sidebar.number_input("Ancho de Fusión (m)", min_value=0.5, max_value=10.0, value=1.9, step=0.1)
-
-st.sidebar.header("⚙️ Parámetros Operativos")
-nivel = st.sidebar.number_input("Nivel de Vidrio (m)", min_value=0.2, max_value=2.0, value=0.60, step=0.01)
-extraccion = st.sidebar.number_input("Extracción (t/día)", min_value=0.5, max_value=50.0, value=3.60, step=0.1)
-temp = st.sidebar.number_input("Temperatura de Fusión (°C)", min_value=1250, max_value=1600, value=1400, step=10)
 
 # Procesamiento de cálculos
 masa_total, tau_teorico_h, t_piston_h, t_mezcla_h, f_muerto, f_piston = calcular_dinamica(longitud, ancho, nivel, extraccion, temp)
@@ -64,8 +61,7 @@ tiempo_90_saturacion = t_piston_h + (t_mezcla_h * np.log(10))
 tiempo_99_saturacion = t_piston_h + (t_mezcla_h * np.log(100))
 
 # --- CÁLCULO DE FECHAS Y HORAS EXACTAS ---
-formato_fecha = "%d %b %Y, %I:%M %p" # Ejemplo: 04 Jul 2026, 03:30 PM
-
+formato_fecha = "%d %b %Y, %I:%M %p" 
 fecha_arranque = inicio_real + datetime.timedelta(hours=t_piston_h)
 fecha_50 = inicio_real + datetime.timedelta(hours=tiempo_50_saturacion)
 fecha_90 = inicio_real + datetime.timedelta(hours=tiempo_90_saturacion)
