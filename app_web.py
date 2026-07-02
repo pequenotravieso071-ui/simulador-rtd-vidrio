@@ -42,7 +42,7 @@ def calcular_dinamica(longitud, ancho, nivel, extraccion, temp):
 # --- INTERFAZ WEB (Formulario en Barra lateral) ---
 with st.sidebar.form("formulario_datos"):
     st.header("🗓️ Inicio del Cambio de Mezcla")
-    st.write("Teclea directamente la fecha y hora sobre los campos:")
+    st.write("Escribe la fecha y hora de inicio de cargas con nueva formula:")
     
     # Campos de texto libre: Súper rápidos de llenar en celular
     fecha_input = st.text_input("Fecha (Formato: DD/MM/AAAA)", value=st.session_state.fecha_txt)
