@@ -136,5 +136,5 @@ if not error_formato:
     | **Aparición (0.1%)** | {t_piston_h:.1f} horas | **<span style='color:#e74c3c'>{fecha_arranque.strftime(formato_fecha)}</span>** | Sale la primera gota con trazas. Inicia el viraje. |
     | **Mitad del Cambio (50%)** | {tiempo_50_saturacion:.1f} horas | **<span style='color:#f39c12'>{fecha_50.strftime(formato_fecha)}</span>** | Producción mezclada. Momento crítico de transición. |
     | **Casi Estable (90%)** | {tiempo_90_saturacion:.1f} horas | **<span style='color:#27ae60'>{fecha_90.strftime(formato_fecha)}</span>** | El color está casi listo, quedan pocos rezagos del viejo. |
-    | **Estabilidad Total (99%)** | {tiempo_99_saturacion:.1f} horas | **<span style='color:#2ecc71'>{fecha_99.strftime(formato_fecha)}</span>** | Horno limpio y saturado. Color completamente estable. |
+    | **Estabilidad Total (99%)** | {tiempo_99_saturacion:.1f} horas | **<span style='color:#2ecc71'>{fecha_99.strftime(formato_fecha)}</span>** | Horno homogeneo reaccion completa. Color completamente estable. |
     """, unsafe_allow_html=True)
