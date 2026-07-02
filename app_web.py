@@ -130,9 +130,9 @@ if not error_formato:
     # --- TABLA DE EVENTOS CON FECHA Y HORA ---
     st.subheader("📋 Calendario de Control de Calidad")
     st.markdown(f"""
-    | Etapa de Transición | Tiempo Transcurrido | ⏰ Fecha y Hora Exacta Estimada | ¿Qué observar en máquinas? |
+    | Etapa de Transición | Tiempo Transcurrido | ⏰ Fecha y Hora Exacta Estimada | ¿Qué observar en vidrio? |
     | :--- | :--- | :--- | :--- |
-    | **Ingreso de nueva mezcla** | 0 horas | **{inicio_real.strftime(formato_fecha)}** | Carga el nueva formula en las tolvas ingresa a horno. |
+    | **Ingreso de nueva mezcla** | 0 horas | **{inicio_real.strftime(formato_fecha)}** | Carga la nueva formula en tolva, ingresa a horno. |
     | **Aparición (0.1%)** | {t_piston_h:.1f} horas | **<span style='color:#e74c3c'>{fecha_arranque.strftime(formato_fecha)}</span>** | Sale la primera gota con trazas. Inicia el viraje. |
     | **Mitad del Cambio (50%)** | {tiempo_50_saturacion:.1f} horas | **<span style='color:#f39c12'>{fecha_50.strftime(formato_fecha)}</span>** | Producción mezclada. Momento crítico de transición. |
     | **Casi Estable (90%)** | {tiempo_90_saturacion:.1f} horas | **<span style='color:#27ae60'>{fecha_90.strftime(formato_fecha)}</span>** | El color está casi listo, quedan pocos rezagos del viejo. |
