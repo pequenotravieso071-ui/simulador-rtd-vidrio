@@ -55,7 +55,7 @@ with st.sidebar.form("formulario_datos"):
     st.header("⚙️ Parámetros Operativos")
     nivel = st.number_input("Nivel de Vidrio (m)", min_value=0.2, max_value=2.0, value=0.60, step=0.01)
     extraccion = st.number_input("Extracción (t/día)", min_value=0.5, max_value=50.0, value=3.60, step=0.1)
-    temp = st.number_input("Temperatura de Fusión (°C)", min_value=1250, max_value=1600, value=1400, step=10)
+    temp = st.number_input("Temperatura de Fusión (°C)", min_value=1300, max_value=1500, value=1420, step=10)
     
     btn_calcular = st.form_submit_button("Actualizar Cálculos")
 
