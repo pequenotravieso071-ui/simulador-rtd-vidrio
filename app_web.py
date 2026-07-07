@@ -17,7 +17,7 @@ if 'hora_txt' not in st.session_state:
     st.session_state.hora_txt = datetime.datetime.now().strftime("%H:%M")
 
 def calcular_dinamica(longitud, ancho, nivel, extraccion, temp):
-    delta_t = temp - 1400
+    delta_t = temp - 1420
     densidad_actual = max(2.20, 2.35 - (delta_t * 0.00015))
     
     area = longitud * ancho
