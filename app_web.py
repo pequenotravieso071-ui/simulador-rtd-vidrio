@@ -130,7 +130,7 @@ if not error_formato:
     # --- TABLA DE EVENTOS CON FECHA Y HORA ---
     st.subheader("📋 Calendario de Control de Calidad")
     st.markdown(f"""
-    | Etapa de Transición | Tiempo Transcurrido | ⏰ Fecha y Hora Exacta Estimada | ¿Qué observar en vidrio? |
+    | Etapa de Transición | Tiempo Transcurrido | ⏰ Fecha y Hora Estimada | ¿Qué observar en vidrio? |
     | :--- | :--- | :--- | :--- |
     | **Ingreso de nueva mezcla** | 0 horas | **{inicio_real.strftime(formato_fecha)}** | Carga la nueva formula en tolva, ingresa a horno. |
     | **Aparición (0.1%)** | {t_piston_h:.1f} horas | **<span style='color:#e74c3c'>{fecha_arranque.strftime(formato_fecha)}</span>** | Comienza el cambio. Inicia el viraje. |
