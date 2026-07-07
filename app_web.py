@@ -128,7 +128,7 @@ if not error_formato:
     st.pyplot(fig)
 
     # --- TABLA DE EVENTOS CON FECHA Y HORA ---
-    st.subheader("📋 Calendario de Control de Calidad")
+    st.subheader("📋 Calendario de cambios en vidrio")
     st.markdown(f"""
     | Etapa de Transición | Tiempo Transcurrido | ⏰ Fecha y Hora Estimada | ¿Qué observar en vidrio? |
     | :--- | :--- | :--- | :--- |
